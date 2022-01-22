@@ -5,7 +5,8 @@ import { State } from './types';
 
 const initialState: State = {
   transactions: {},
-  tasks: []
+  tasks: [],
+  userobjs: []
 };
 
 export const { actions, reducer } = createSlice({

@@ -12,9 +12,15 @@ export type Task = {
   done: boolean;
 };
 
+export type UserObj = {
+  email: string;
+  password: string;
+};
+
 export type State = {
   transactions: {
     [key: string]: Transaction;
   };
   tasks: Task[];
+  userobjs: UserObj[];
 };

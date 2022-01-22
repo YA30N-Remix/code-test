@@ -50,7 +50,7 @@ const Welcome: FC = () => {
                 };
 
                 dispatch(actions.set({ tasks: update }));
-
+                debugger;
                 if (update[index].done) setQuery({ completed: `${index + 1}` });
               }}
               label={

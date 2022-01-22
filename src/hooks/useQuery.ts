@@ -22,12 +22,12 @@ function useQuery() {
     (update: { [key: string]: number | string | undefined }, options?: { replace?: boolean }) => {
       const query = new URLSearchParams(location.search);
       const newQuery: { [key: string]: string } = {};
-
+      debugger;
       // First put all current query paramters into the new query parameters
       query.forEach((value, key) => {
         newQuery[key] = value;
       });
-
+      debugger;
       // Then update or delete any new query parameters from the update object
       Object.keys(update).forEach((key) => {
         if (update[key]) newQuery[key] = `${update[key]}`;

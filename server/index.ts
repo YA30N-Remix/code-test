@@ -20,8 +20,8 @@ async function getResult(
   const user = cookies.get('user', { signed: true });
 
   if (url.indexOf('/authenticate') === 0) {
-    if (!body?.email || !body?.password) return null;
-
+    if (!body?.email || !body?.password) return body;
+    
     const user = getID();
 
     cookies.set(`user`, user, {
@@ -31,7 +31,7 @@ async function getResult(
 
     return { user };
   }
-
+  debugger;
   if (url.indexOf('/tasks') === 0) {
     return [
       { description: 'Authenticate', done: false },
