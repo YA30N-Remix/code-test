@@ -98,4 +98,4 @@ const Data: FC = () => {
   );
 };
 
-export default Login;
+export default Data;
