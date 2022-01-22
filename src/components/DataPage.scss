@@ -1,9 +1,12 @@
 @import '../variables';
 
-.Data {
+.DataPage {
+  width: 100%;
   padding: 3rem;
   line-height: 1.5;
-
+  .table-responsive {
+    background-color: white;
+  }
   h1 {
     font-size: 2.5rem;
   }
@@ -47,3 +50,4 @@
     }
   }
 }
+

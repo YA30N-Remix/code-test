@@ -31,7 +31,7 @@ async function getResult(
 
     return { user };
   }
-  debugger;
+   
   if (url.indexOf('/tasks') === 0) {
     return [
       { description: 'Authenticate', done: false },
@@ -39,6 +39,26 @@ async function getResult(
       { description: 'Display data', done: false },
       { description: 'Delete data', done: false }
     ];
+  }
+
+  if (url.indexOf('/task') === 0) {
+    return [...Array(40)].reduce((transactions: Transaction) => {
+      const id = getID();
+      const token = TOKENS[Math.floor(Math.random() * 3)];
+
+      transactions[id] = {
+        id,
+        from: getID(),
+        to: getID(),
+        amount: `${Math.floor(Math.random() * 9999)}`,
+        token: token.id,
+        tokenName: token.name
+      };
+
+      return transactions;
+    }, {});
+    
+  return null;
   }
 
   if (!user) return null;
@@ -51,7 +71,7 @@ async function getResult(
   }
 
   if (url.indexOf('/transactions') === 0) {
-    return [...Array(40)].reduce((transactions: { [key: string]: Transaction }) => {
+    return [...Array(40)].reduce((transactions: Transaction) => {
       const id = getID();
       const token = TOKENS[Math.floor(Math.random() * 3)];
 

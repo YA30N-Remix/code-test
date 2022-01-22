@@ -18,9 +18,7 @@ export type UserObj = {
 };
 
 export type State = {
-  transactions: {
-    [key: string]: Transaction;
-  };
+  transactions: Transaction[];
   tasks: Task[];
   userobjs: UserObj[];
 };

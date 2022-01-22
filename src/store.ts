@@ -4,7 +4,7 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { State } from './types';
 
 const initialState: State = {
-  transactions: {},
+  transactions: [],
   tasks: [],
   userobjs: []
 };

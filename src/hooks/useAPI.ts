@@ -55,8 +55,10 @@ const useAPI = () => {
   }, []);
 
   const getTransaction = useCallback(async (): Promise<Transaction[]> => {
+    debugger;
+    console.log(process.env.REACT_APP_API_URL);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/task`, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
