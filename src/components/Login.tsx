@@ -13,44 +13,44 @@ const Login: FC = () => {
   const dispatch = useDispatch();
   const { query, setQuery } = useQuery();
   const userobjs = useSelector((state) => state.userobjs);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
- 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <main className="Login">
       <h1>Login</h1>
-      <form
-        onSubmit={() => {
-          debugger;
-          let user = userobjs.slice();
-          user[0] = {
-            email: email.toString(),
-            password: password.toString()
-          };
- 
-          Login().then((userobjs) => {
-            dispatch(actions.set({ userobjs: user }));
-          });
-        }}
-      >
+      <div>
         <input
           type="text"
           className="form-control "
-          name="email"
+          name="email" value={email}
           placeholder="Enter Your Email"
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => setEmail(event.target.value)}
         ></input>
 
         <input
-          type="password"
+          type="password" value={password}
           className="form-control my-2"
           name="password"
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
           placeholder="Enter Your Password"
         ></input>
-        <input type="submit" className="btn btn-primary w-100" value="Login"></input>
-      </form>
+        <button
+          className="btn btn-primary w-100"
+          onClick={() => {
+            debugger;
+            const userobj = {
+              email: email.toString(),
+              password: password.toString()
+            };
+            Login(userobj).then((userobj) => {
+              dispatch(actions.set({ userobjs: userobjs }));
+            });
+          }}
+        >
+          Login
+        </button>
+      </div>
     </main>
   );
 };

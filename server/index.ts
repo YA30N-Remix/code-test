@@ -20,8 +20,8 @@ async function getResult(
   const user = cookies.get('user', { signed: true });
 
   if (url.indexOf('/authenticate') === 0) {
-    if (!body?.email || !body?.password) return body;
-    
+    if (!body?.email || !body?.password) return null;
+
     const user = getID();
 
     cookies.set(`user`, user, {

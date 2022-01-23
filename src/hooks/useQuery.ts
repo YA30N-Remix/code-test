@@ -7,6 +7,7 @@ function useQuery() {
 
   // Create an object out of the URL query parameters
   const query = useMemo(() => {
+    debugger;
     const query = new URLSearchParams(location.search);
     const props: { [key: string]: string } = {};
 

@@ -29,13 +29,14 @@ const useAPI = () => {
     return [];
   }, []);
 
-  const Login = useCallback(async (): Promise<UserObj[]> => {
+  const Login = useCallback(async (userobj: UserObj): Promise<UserObj[]> => {
     debugger;
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/authenticate`, {
         method: 'Post',
         mode: 'cors',
-        credentials: 'include'
+        credentials: 'include',
+        body: JSON.stringify(userobj)
       });
       debugger;
       if (response.status !== 200) {
@@ -63,7 +64,7 @@ const useAPI = () => {
         mode: 'cors',
         credentials: 'include'
       });
-      
+
       if (response.status !== 200) {
         toast(`API request failed`, { type: 'error' });
 
@@ -79,7 +80,6 @@ const useAPI = () => {
 
     return [];
   }, []);
-
 
   return {
     getTasks,
