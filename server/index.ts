@@ -40,27 +40,7 @@ async function getResult(
       { description: 'Delete data', done: false }
     ];
   }
-
-  if (url.indexOf('/task') === 0) {
-    return [...Array(40)].reduce((transactions: Transaction) => {
-      const id = getID();
-      const token = TOKENS[Math.floor(Math.random() * 3)];
-
-      transactions[id] = {
-        id,
-        from: getID(),
-        to: getID(),
-        amount: `${Math.floor(Math.random() * 9999)}`,
-        token: token.id,
-        tokenName: token.name
-      };
-
-      return transactions;
-    }, {});
-    
-  return null;
-  }
-
+ 
   if (!user) return null;
 
   if (url.indexOf('/transactions/delete/') === 0) {
@@ -71,11 +51,13 @@ async function getResult(
   }
 
   if (url.indexOf('/transactions') === 0) {
-    return [...Array(40)].reduce((transactions: Transaction) => {
+    let indexid = 0;
+    return [...Array(40)].reduce((transactions: Transaction[]) => {
+      indexid +=1;
       const id = getID();
       const token = TOKENS[Math.floor(Math.random() * 3)];
 
-      transactions[id] = {
+      transactions[indexid] = {
         id,
         from: getID(),
         to: getID(),
@@ -85,7 +67,7 @@ async function getResult(
       };
 
       return transactions;
-    }, {});
+    }, []);
   }
 
   return null;

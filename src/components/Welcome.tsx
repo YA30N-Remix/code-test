@@ -22,8 +22,9 @@ const Welcome: FC = () => {
 
   useEffect(() => {
     if (tasks.length) return;
-
+    debugger;
     getTasks().then((tasks) => {
+      debugger;
       dispatch(actions.set({ tasks }));
     });
   }, [getTasks, dispatch, tasks]);
@@ -33,6 +34,7 @@ const Welcome: FC = () => {
       <h1>Welcome</h1>
       <p>To the Digital Renaissance code test. Please have a look at the README.md.</p>
       <p>If you installed everything correctly, you should see a list of 4 items below:</p>
+ 
       <ol>
         {tasks.map((task, index) => (
           <li key={index} className={task.done ? 'done' : ''}>

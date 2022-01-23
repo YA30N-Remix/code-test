@@ -3,30 +3,31 @@ import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
 
 import { useSelector, actions, useDispatch } from '../store';
-import useQuery from '../hooks/useQuery';
 import useAPI from '../hooks/useAPI';
 
 import './DataPage.scss';
-import { Link } from 'react-router-dom';
+ 
 
 const DataPage: FC = () => {
-  const { getTransaction } = useAPI();
+  const { getTransaction, deleteTransaction } = useAPI();
   const dispatch = useDispatch();
-  const { query, setQuery } = useQuery();
   const transactions = useSelector((state) => state.transactions);
 
   useEffect(() => {
+     
     if (transactions.length) return;
 
     getTransaction().then((transactions) => {
+      debugger;  
       dispatch(actions.set({ transactions }));
     });
-  }, [getTransaction, dispatch, transactions]);
+  }, [getTransaction, deleteTransaction, dispatch, transactions]);
 
+ 
   return (
     <main className="DataPage">
-      <h1>DataPage</h1>
-
+      <h1>DataPage</h1> 
+    
       <div className="table-responsive">
         <table className="table table-striped table-hover">
           <thead>
@@ -50,34 +51,46 @@ const DataPage: FC = () => {
               <th className="text-center" scope="col">
                 tokenName
               </th>
-              <th scope="col">Actions</th>
+              <th className="text-center" scope="col">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
-            {transactions.map((item, index) => (
-              <tr key={item.id}>
-                <th scope="row">{index + 1}</th>
-                <td className="text-center">{item.from}</td>
-                <td className="text-center">{item.to}</td>
-                <td className="text-center">{item.amount}</td>
-                <td className="text-center">{item.token}</td>
-                <td className="text-center">{item.tokenName}</td>
-                <td className="text-center">{item.tokenName}</td>
-                <td className="text-center">
-                  <Link
-                    to={`/dashboard/restaurant/edit/${item.id}`}
-                    onClick={() => {}}
-                    className="p-1"
-                  >
-                    <i className="fa fa-id-card text-warning"></i>
-                  </Link>
-
-                  <span className="cursor-pointer p-1" onClick={() => {}}>
-                    <i className="fa fa-trash text-danger"></i>
-                  </span>
+          {transactions.map((item, index) => (
+            item == null ? (<tr></tr>) : (
+              <tr key={index}>
+                <th scope="row">{index}</th>
+                <td className="text-center">{item == null ? '' : item.from}</td>
+                <td className="text-center">{item == null ? '' : item.to}</td>
+                <td className="text-center">{item == null ? '' : item.amount}</td>
+                <td className="text-center">{item == null ? '' : item.token}</td> 
+                <td className="text-center">{item == null ? '' : item.tokenName}</td> 
+                <td>
+                <span
+                                className="cursor-pointer p-1"
+                                onClick={() => { 
+                                  debugger
+                                  deleteTransaction(item.id).then((transactions) => { 
+                                    toast(`Delete Success`, { type: 'success' }); 
+                                  }); 
+                                    }
+                                  }
+                              >
+                                <i className="fa fa-trash text-danger"></i>
+                              </span>
+                              <span
+                                className="cursor-pointer p-1"
+                                onClick={() => { 
+                                  alert(item.from)
+                                    }
+                                  }
+                              >
+                                <i className="fa fa-card text-default"></i>
+                              </span>
                 </td>
               </tr>
-            ))}
+          )))}
           </tbody>
         </table>
       </div>

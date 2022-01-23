@@ -7,6 +7,7 @@ import useQuery from '../hooks/useQuery';
 import useAPI from '../hooks/useAPI';
 
 import './Login.scss';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const Login: FC = () => {
   const { Login } = useAPI();
@@ -43,8 +44,9 @@ const Login: FC = () => {
               email: email.toString(),
               password: password.toString()
             };
-            Login(userobj).then((userobj) => {
-              dispatch(actions.set({ userobjs: userobjs }));
+            Login(userobj).then((userobj) => { 
+              toast(`Login Success`, { type: 'success' });
+              window.location.href = '/DataPage';
             });
           }}
         >

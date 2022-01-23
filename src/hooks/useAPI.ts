@@ -46,9 +46,8 @@ const useAPI = () => {
       }
       debugger;
       return await response.json();
-    } catch (e) {
+    } catch (e) { 
       console.log(e);
-      debugger;
       toast(`API request failed`, { type: 'error' });
     }
 
@@ -56,10 +55,9 @@ const useAPI = () => {
   }, []);
 
   const getTransaction = useCallback(async (): Promise<Transaction[]> => {
-    debugger;
-    console.log(process.env.REACT_APP_API_URL);
+ 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/task`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/transactions`, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -73,8 +71,32 @@ const useAPI = () => {
 
       return await response.json();
     } catch (e) {
-      console.log(e);
+    
+      toast(`API request failed`, { type: 'error' });
+    }
 
+    return [];
+  }, []);
+
+  const deleteTransaction = useCallback(async (id: string): Promise<Transaction[]> => {
+ debugger;
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/transactions/delete/`, {
+        method: 'OPTIONS',
+        mode: 'cors',
+        credentials: 'include'
+      });
+
+      if (response.status !== 200) {
+        toast(`API request failed`, { type: 'error' });
+
+        return [];
+      }
+
+      return await response.json();
+    } catch (e) {
+      console.log(e);
+    
       toast(`API request failed`, { type: 'error' });
     }
 
@@ -84,7 +106,8 @@ const useAPI = () => {
   return {
     getTasks,
     Login,
-    getTransaction
+    getTransaction,
+    deleteTransaction
   };
 };
 
