@@ -11,15 +11,15 @@ const DataPage: FC = () => {
   const { getTransaction, deleteTransaction } = useAPI();
   const dispatch = useDispatch();
   const transactions = useSelector((state) => state.transactions);
+  const deletedtransaction = useSelector((state) => state.deletedtransaction);
 
   useEffect(() => {
     if (transactions.length) return;
 
     getTransaction().then((transactions) => {
-      debugger;
       dispatch(actions.set({ transactions }));
     });
-  }, [getTransaction, deleteTransaction, dispatch, transactions]);
+  }, [getTransaction, deleteTransaction, dispatch, transactions, deletedtransaction]);
 
   return (
     <main className="DataPage">
@@ -68,14 +68,16 @@ const DataPage: FC = () => {
                   <td>
                     <span
                       className="cursor-pointer p-1"
-                      onClick={() => {
-                        debugger;
-                        deleteTransaction(item.id).then((transactions) => {
-                          toast(`Delete Success`, { type: 'success' });
-                          getTransaction().then((transactions) => {
-                            debugger;
-                            dispatch(actions.set({ transactions }));
-                          });
+                      onClick={() => { 
+                        deleteTransaction(item.id).then((deletedtransaction) => {
+                          debugger
+                          if (deletedtransaction.deleted === true) {
+                            dispatch(actions.set({ deletedtransaction }));
+                            toast(`Delete Success`, { type: 'success' });
+                            getTransaction().then((transactions) => {
+                              dispatch(actions.set({ transactions }));
+                            });
+                          } 
                         });
                       }}
                     >

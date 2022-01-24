@@ -40,7 +40,7 @@ async function getResult(
       { description: 'Delete data', done: false }
     ];
   }
- 
+
   if (!user) return null;
 
   if (url.indexOf('/transactions/delete/') === 0) {

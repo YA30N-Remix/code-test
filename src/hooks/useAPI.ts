@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
 
-import { Task, UserObj, Transaction } from '../types';
+import { Task, UserObj, Transaction, DeletedTransaction } from '../types';
 
 const useAPI = () => {
-  debugger;
+  
   const getTasks = useCallback(async (): Promise<Task[]> => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
@@ -30,7 +30,7 @@ const useAPI = () => {
   }, []);
 
   const Login = useCallback(async (userobj: UserObj): Promise<UserObj[]> => {
-    debugger;
+    
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/authenticate`, {
         method: 'Post',
@@ -38,13 +38,13 @@ const useAPI = () => {
         credentials: 'include',
         body: JSON.stringify(userobj)
       });
-      debugger;
+      
       if (response.status !== 200) {
         toast(`API request failed`, { type: 'error' });
 
         return [];
       }
-      debugger;
+      
       return await response.json();
     } catch (e) {
       console.log(e);
@@ -76,10 +76,10 @@ const useAPI = () => {
     return [];
   }, []);
 
-  const deleteTransaction = useCallback(async (id: string): Promise<Transaction[]> => {
+  const deleteTransaction = useCallback(async (id: string): Promise<DeletedTransaction> => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/transactions/delete/${id}`, {
-        method: 'OPTIONS',
+        method: 'GET',
         mode: 'cors',
         credentials: 'include'
       });
@@ -87,17 +87,23 @@ const useAPI = () => {
       if (response.status !== 200) {
         toast(`API request failed`, { type: 'error' });
 
-        return [];
+        return {
+          id: '',
+          deleted: false
+        };
       }
-
+      debugger;
       return await response.json();
     } catch (e) {
       console.log(e); 
       toast(`API request failed`, { type: 'error' });
     }
 
-    return [];
-  }, []);
+    return {
+      id: '',
+      deleted: false
+    };
+  },[]);
 
   return {
     getTasks,

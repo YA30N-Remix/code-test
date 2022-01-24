@@ -7,6 +7,11 @@ export type Transaction = {
   tokenName: string;
 };
 
+export type DeletedTransaction = {
+  id: string;
+  deleted: boolean;
+};
+
 export type Task = {
   description: string;
   done: boolean;
@@ -21,4 +26,5 @@ export type State = {
   transactions: Transaction[];
   tasks: Task[];
   userobjs: UserObj[];
+  deletedtransaction: DeletedTransaction;
 };

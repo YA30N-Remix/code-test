@@ -39,7 +39,7 @@ const Login: FC = () => {
         <button
           className="btn btn-primary w-100"
           onClick={() => {
-            debugger;
+            
             const userobj = {
               email: email.toString(),
               password: password.toString()

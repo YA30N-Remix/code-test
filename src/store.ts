@@ -7,6 +7,10 @@ const initialState: State = {
   transactions: [],
   tasks: [],
   userobjs: [],
+  deletedtransaction: {
+    id: '',
+    deleted: false
+  }
 };
 
 export const { actions, reducer } = createSlice({
